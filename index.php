@@ -6,7 +6,7 @@
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 </head>
-<body>
+<body class="p-4">
 <?php
 
 
@@ -57,6 +57,23 @@ $hotels = [
 
 
 
+<form action="index.php" method="GET" class="mb-2">
+    <label for="">Parcheggio ?</label>
+    <select name="select" id="select" >
+      
+        <option value="si">Si</option>
+        <option value="no">No</option>
+        
+    </select>
+    <button type="submit">Invia</button>
+
+</form>
+
+<?php 
+//  var_dump($_GET['select']) ?>
+
+
+
 
 <table class="table table-bordered border-primary">
     <thead>
@@ -68,16 +85,31 @@ $hotels = [
     </thead>
 <?php 
 foreach ($hotels as $item) { ?>
-<tr class="table-danger">
+
+<tr class="table-danger" style="
+<?php if(isset($_GET['select'])) {
+if ($_GET['select']== 'si' && $item['parking']== false) {
+    echo 'display:none';
+}
+
+
+} ?>">
+    
 <td class="table-danger"><?php echo $item['name'] ?></td>
 <td class="table-danger"><?php echo $item['description'] ?></td>
 <td class="table-danger"><?php if($item['parking']==true){ echo 'Si';} else{ echo 'No';}?> </td>
 <td class="table-danger"><?php echo $item['vote']  ?></td>
-<td class="table-danger"><?php echo $item['distance_to_center'] ?> Km</td>
+<td class="table-danger"><?php echo $item['distance_to_center'] ?> Km</td> 
+
 </tr>
 
+
 <?php } ?>
+
+
 </table>
+
+
 
 
 </body>
